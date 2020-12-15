@@ -2,7 +2,7 @@ import React from 'react';
 import Book from './Book'
 import PropTypes from 'prop-types'
 
-const BookList = ({listTitle, books, setToCurrReading, setToNone, setToWantToRead, setToRead}) => {
+const BookList = ({listTitle, books, updateBookShelf}) => {
     return (
         <div className="bookshelf">
             <h2 className="bookshelf-title">{listTitle}</h2>
@@ -15,14 +15,11 @@ const BookList = ({listTitle, books, setToCurrReading, setToNone, setToWantToRea
                             <li key={book.id}>
                                 <Book 
                                     book={book}
-                                    setToCurrReading={setToCurrReading} 
-                                    setToWantToRead={setToWantToRead} 
-                                    setToRead={setToRead} 
-                                    setToNone={setToNone}
+                                    updateBookShelf={updateBookShelf}
                                 />
                             </li>
                     ) 
-                                            ))
+                                ))
                     : (
                         <p>There are no books in this shelf</p>
                       )
@@ -35,11 +32,9 @@ const BookList = ({listTitle, books, setToCurrReading, setToNone, setToWantToRea
 
 BookList.propTypes = {
     listTitle: PropTypes.string,
-    books:PropTypes.array.isRequired,
-    setToCurrReading:PropTypes.func.isRequired,
-    setToWantToRead:PropTypes.func.isRequired,
-    setToRead:PropTypes.func.isRequired,
-    setToNone:PropTypes.func.isRequired
+    books:PropTypes.array,
+    updateBookShelf:PropTypes.func.isRequired,
+
 }
 
 

@@ -12,36 +12,21 @@ class BooksApp extends React.Component {
     books:[]
  }
  componentDidMount() {
-   BooksAPI.getAll().then(books => {
-       this.setState({
-       books
-       })
-   })
+    this.getAllBooks()
  }
 
-setToCurrReading = (book) => {
-   this.setState(oldState => ({
-       books:util.changeShelfStatus(oldState.books, book, util.currentlyReading)
-   }))
-}
+ getAllBooks = () => {
+  BooksAPI.getAll().then(books => {
+    this.setState({
+    books
+    })
+})
+ }
 
-setToRead = (book) => {
-   this.setState(oldState => ({
-       books:util.changeShelfStatus(oldState.books, book, util.read)
-   }))
-}
 
-setToWantToRead = (book) => {
-   this.setState(oldState => ({
-       books:util.changeShelfStatus(oldState.books, book, util.wantToRead)
-   }))
-}
-
-setToNone = (book) => {
-   this.setState(oldState => ({
-       books:util.changeShelfStatus(oldState.books, book, util.none)
-   }))
-}
+updateBookShelf = (book, shelf) => (
+  BooksAPI.update(book, shelf).then(() => this.getAllBooks())
+)
 
   render() {
     const {books} = this.state
@@ -50,19 +35,12 @@ setToNone = (book) => {
         <Route exact path="/" render={() => (
           <BooksShelf 
               books={books} 
-              setToCurrReading={this.setToCurrReading} 
-              setToWantToRead={this.setToWantToRead} 
-              setToRead={this.setToRead} 
-              setToNone={this.setToNone}
+              updateBookShelf={this.updateBookShelf}
           />
         )}/>
         <Route path='/search' render={() => (
           <SearchBooks
-              books={books} 
-              setToCurrReading={this.setToCurrReading} 
-              setToWantToRead={this.setToWantToRead} 
-              setToRead={this.setToRead} 
-              setToNone={this.setToNone}
+             updateBookShelf={this.updateBookShelf}
           />
         )}/>
       </div>

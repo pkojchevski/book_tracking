@@ -5,7 +5,8 @@ import BookList from '../components/BookList'
 import * as util from '../shared'
 
 
-const BooksShelf = (props) => 
+const BooksShelf = ({books, updateBookShelf}) => 
+   
      (
             <div className="list-books">
                 <div className="list-books-title">
@@ -14,25 +15,16 @@ const BooksShelf = (props) =>
                 <div className="list-books-content">
                 <div>
                     <BookList listTitle="Currently Reading" 
-                              books={props.books.filter(el => el.shelf === util.currentlyReading)} 
-                              setToCurrReading={props.setToCurrReading} 
-                              setToWantToRead={props.setToWantToRead} 
-                              setToRead={props.setToRead} 
-                              setToNone={props.setToNone}
+                        books={books.filter(el => el.shelf === util.currentlyReading)} 
+                        updateBookShelf={updateBookShelf}
                     />
                     <BookList listTitle="Want to Read" 
-                              books={props.books.filter(el => el.shelf === util.wantToRead)} 
-                              setToCurrReading={props.setToCurrReading} 
-                              setToWantToRead={props.setToWantToRead} 
-                              setToRead={props.setToRead} 
-                              setToNone={props.setToNone}
+                        books={books.filter(el => el.shelf === util.wantToRead)} 
+                        updateBookShelf={updateBookShelf}
                     />
                     <BookList listTitle="Read" 
-                              books={props.books.filter(el => el.shelf === util.read)} 
-                              setToCurrReading={props.setToCurrReading} 
-                              setToWantToRead={props.setToWantToRead} 
-                              setToRead={props.setToRead} 
-                              setToNone={props.setToNone}
+                        books={books.filter(el => el.shelf === util.read)} 
+                        updateBookShelf={updateBookShelf}
                     />
                 </div>
                 </div>
@@ -44,10 +36,7 @@ const BooksShelf = (props) =>
 
 BooksShelf.propTypes = {
     books:PropTypes.array.isRequired,
-    setToCurrReading:PropTypes.func.isRequired,
-    setToWantToRead:PropTypes.func.isRequired,
-    setToRead:PropTypes.func.isRequired,
-    setToNone:PropTypes.func.isRequired
+    updateBookShelf: PropTypes.func.isRequired
 }
 
 export default BooksShelf
