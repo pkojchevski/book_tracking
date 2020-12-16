@@ -5,11 +5,13 @@ import { Route } from 'react-router-dom'
 import BooksShelf from './page/BooksShelf'
 import SearchBooks from './page/SearchBooks'
 import * as BooksAPI from './BooksAPI'
-import * as util from './shared'
 
 class BooksApp extends React.Component {
   state = {
-    books:[]
+    books:[],
+    // currentlyReading:[],
+    // wantToRead:[],
+    // read:[]
  }
  componentDidMount() {
     this.getAllBooks()
@@ -17,15 +19,19 @@ class BooksApp extends React.Component {
 
  getAllBooks = () => {
   BooksAPI.getAll().then(books => {
+    console.log('books:', books)
     this.setState({
     books
     })
 })
  }
 
-
 updateBookShelf = (book, shelf) => (
-  BooksAPI.update(book, shelf).then(() => this.getAllBooks())
+  BooksAPI.update(book, shelf).then((res) => {
+    console.log('res:', res)
+    // this.setState({currentlyReading:res.currentlyReading, read:res.read, wantToRead:res.wantToRead})
+    this.getAllBooks()
+  })
 )
 
   render() {
@@ -49,3 +55,6 @@ updateBookShelf = (book, shelf) => (
 }
 
 export default BooksApp
+
+
+

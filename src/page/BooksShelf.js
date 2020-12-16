@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import BookList from '../components/BookList'
@@ -6,7 +6,6 @@ import * as util from '../shared'
 
 
 const BooksShelf = ({books, updateBookShelf}) => 
-   
      (
             <div className="list-books">
                 <div className="list-books-title">

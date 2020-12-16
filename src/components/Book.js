@@ -23,12 +23,18 @@ class Book extends React.Component {
       <div className="book">
         <div className="book-top">
           <div className="book-cover" 
-              style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks.thumbnail})` }}>
+              style={{ width: 128, height: 192, 
+                       backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})` }}>
           </div>
-          <BookShelfMenu value={this.state.value} handleShelfChange={this.handleShelfChange}/>
+          <BookShelfMenu value={this.state.value}
+                         handleShelfChange={this.handleShelfChange}
+                         
+          />
         </div>
         <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.author}</div>
+        {book.authors && book.authors.map((author, id) => (
+          <div key={id} className="book-authors">{author}</div>
+        ))}
     </div>
   );
   }

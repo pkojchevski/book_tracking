@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom'
 import Book from '../components/Book'
 import * as BooksAPI from '../BooksAPI'
+import * as util from '../shared'
 
 
 class SearchBooks extends Component {
@@ -12,17 +13,21 @@ class SearchBooks extends Component {
         books:[]
     }
 
-    updateQuery(query) {
-        this.setState({query})
-
-        BooksAPI.search(query)
+    searchForBooks = (query) => {
+       this.setState({query})
+       query === '' ? this.setState({books:[], error:""}) : 
+       BooksAPI.search(query)
            .then(data => {
+            console.log('books:', data)
                if(data && data.error) {
                    return this.setState({books:[], error:data.error})
                }
-               
                 return this.setState({books:data, error:''})
             })
+    }
+
+    updateQuery(query) {
+        util.debounce(this.searchForBooks(query),1000)
     }
 
 
@@ -48,7 +53,7 @@ class SearchBooks extends Component {
                         books.length > 0 ? (
                             books.map(book => (
                                 <li key={book.id}>
-                                    <Book book={book} updateBookShelf={this.props.updateBookShelf} value="none"/>
+                                    <Book book={book} updateBookShelf={this.props.updateBookShelf} value={book.shelf}/>
                                 </li>
                         )))
                         : (
