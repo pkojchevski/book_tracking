@@ -18,10 +18,17 @@ class SearchBooks extends Component {
        query === '' ? this.setState({books:[], error:""}) : 
        BooksAPI.search(query)
            .then(data => {
-            console.log('books:', data)
                if(data && data.error) {
                    return this.setState({books:[], error:data.error})
-               }
+               } 
+                data.forEach(book => {
+                    const filteredBook = this.props.booksWithShelfs.filter(el => el.id === book.id)
+                    if(filteredBook.length > 0) {
+                        book.shelf = filteredBook[0].shelf
+                    } else {
+                        book.shelf = 'none'
+                    }
+                })
                 return this.setState({books:data, error:''})
             })
     }
@@ -32,6 +39,7 @@ class SearchBooks extends Component {
 
 
     render() {
+
         const {books, query, error} = this.state                         
         return (
             <div className="search-books">
@@ -53,7 +61,9 @@ class SearchBooks extends Component {
                         books.length > 0 ? (
                             books.map(book => (
                                 <li key={book.id}>
-                                    <Book book={book} updateBookShelf={this.props.updateBookShelf} value={book.shelf}/>
+                                    <Book book={book} 
+                                        updateBookShelf={this.props.updateBookShelf} 
+                                        value={book.shelf}/>
                                 </li>
                         )))
                         : (

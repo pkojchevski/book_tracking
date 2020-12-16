@@ -3,7 +3,7 @@ import * as util from '../shared'
 import PropTypes from 'prop-types'
 
 const BookShelfMenu = ({value, handleShelfChange}) => {
-console.log(value)
+
     return (
         <div className="book-shelf-changer">
         <select value={value} onChange={handleShelfChange}>
