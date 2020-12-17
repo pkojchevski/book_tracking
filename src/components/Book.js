@@ -6,7 +6,7 @@ class Book extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      value:this.props.book.shelf || this.props.value
+      value:(this.props.book.shelf || this.props.value)
     }
   }
 

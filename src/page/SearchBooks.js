@@ -32,7 +32,7 @@ class SearchBooks extends Component {
                         book.shelf = 'none'
                     }
                 })
-                return this.setState({books:data, error:''})
+                 this.setState({books:data, error:''})
                }   
             })
     }
@@ -44,6 +44,7 @@ class SearchBooks extends Component {
 
 
     render() {
+
         const {books, query, error} = this.state                         
         return (
             <div className="search-books">
@@ -65,7 +66,9 @@ class SearchBooks extends Component {
                         books.length > 0 ? (
                             books.map(book => (
                                 <li key={book.id}>
-                                    <Book book={book} updateBookShelf={this.props.updateBookShelf} value={book.shelf}/>
+                                    <Book book={book} 
+                                        updateBookShelf={this.props.updateBookShelf} 
+                                        value={book.shelf}/>
                                 </li>
                         )))
                         : (
