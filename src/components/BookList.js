@@ -32,9 +32,8 @@ const BookList = ({listTitle, books, updateBookShelf}) => {
 
 BookList.propTypes = {
     listTitle: PropTypes.string,
-    books:PropTypes.array,
+    books:PropTypes.array.isRequired,
     updateBookShelf:PropTypes.func.isRequired,
-
 }
 
 

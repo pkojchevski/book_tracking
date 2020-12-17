@@ -1,5 +1,4 @@
 import React from 'react'
-
 import './App.css'
 import { Route } from 'react-router-dom'
 import BooksShelf from './page/BooksShelf'
@@ -9,9 +8,6 @@ import * as BooksAPI from './BooksAPI'
 class BooksApp extends React.Component {
   state = {
     books:[],
-    // currentlyReading:[],
-    // wantToRead:[],
-    // read:[]
  }
  componentDidMount() {
     this.getAllBooks()
@@ -19,20 +15,17 @@ class BooksApp extends React.Component {
 
  getAllBooks = () => {
   BooksAPI.getAll().then(books => {
-    console.log('books:', books)
     this.setState({
     books
     })
 })
  }
 
-updateBookShelf = (book, shelf) => (
+updateBookShelf = (book, shelf) => {
   BooksAPI.update(book, shelf).then((res) => {
-    console.log('res:', res)
-    // this.setState({currentlyReading:res.currentlyReading, read:res.read, wantToRead:res.wantToRead})
     this.getAllBooks()
   })
-)
+}
 
   render() {
     const {books} = this.state
@@ -47,6 +40,7 @@ updateBookShelf = (book, shelf) => (
         <Route path='/search' render={() => (
           <SearchBooks
              updateBookShelf={this.updateBookShelf}
+             booksWithShelfs={books}
           />
         )}/>
       </div>

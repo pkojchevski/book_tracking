@@ -1,17 +1,16 @@
 import React from 'react';
-import * as util from '../shared'
+import { currentlyReading, wantToRead, read, none} from '../shared'
 import PropTypes from 'prop-types'
 
 const BookShelfMenu = ({value, handleShelfChange}) => {
-console.log(value)
     return (
         <div className="book-shelf-changer">
         <select value={value} onChange={handleShelfChange}>
             <option value="move" disabled>Move to...</option>
-            <option value={util.currentlyReading}>Currently Reading</option>
-            <option value={util.wantToRead}>Want to Read</option>
-            <option value={util.read}>Read</option>
-            <option value={util.none}>None</option>
+            <option value={currentlyReading}>Currently Reading</option>
+            <option value={wantToRead}>Want to Read</option>
+            <option value={read}>Read</option>
+            <option value={none}>None</option>
         </select>
       </div>
     );
